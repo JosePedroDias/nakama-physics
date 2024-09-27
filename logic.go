@@ -40,9 +40,9 @@ func addBox(space *cp.Space, size, mass float64) *cp.Body {
 
 func newPhysicsGame() *PGame {
 	space := cp.NewSpace()
-	space.Iterations = 30
-	space.SetGravity(cp.Vector{X: 0, Y: 9.8})
-	space.SleepTimeThreshold = 0.5
+	//space.Iterations = 30 // default to 10
+	//space.SetGravity(cp.Vector{X: 0, Y: 9.8})
+	space.SleepTimeThreshold = 0.5 // if idle for 0.5 secs, goes to sleep
 	space.SetCollisionSlop(0.5)
 
 	addHollowRect(space, 50, 40)

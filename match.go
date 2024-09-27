@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 
 	"github.com/heroiclabs/nakama-common/runtime"
+	cp "github.com/jakecoffman/cp/v2"
 )
 
 const TICK_RATE = 30 // number of ticks the server runs per second
@@ -105,7 +106,17 @@ func (m *PMatch) MatchLoop(ctx context.Context, logger runtime.Logger, db *sql.D
 
 		switch op {
 		case OpForceBodies:
-			// TODO
+			var fb ForceBodiesBody
+			if err := json.Unmarshal(data, &fb); err != nil {
+				fbb1, ok := fb["b1"]
+				if ok {
+					logger.Debug("impulse b1 %#v", fbb1)
+					// TODO NOT WORKING
+					state.game.b1.ApplyImpulseAtLocalPoint(cp.Vector{X: fbb1[0], Y: fbb1[1]}, cp.Vector{X: 0, Y: 0})
+				}
+			} // else {
+			//	logger.Error(err.Error())
+			//}
 		default:
 			logger.Debug("unsupported opcode: %d", op)
 		}
